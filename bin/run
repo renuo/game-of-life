@@ -1,13 +1,29 @@
 #!/usr/bin/env ruby
 
 require 'highline/import'
-game_paths = Dir.glob('./*/game.rb')
-game_paths = game_paths.map { |p| p[2..-9] }
 
-choose do |menu|
-  menu.prompt = 'Choose one of the games above:'
-  menu.choices(*game_paths) do |choosen_path|
-    exec "GAME_PATH=#{choosen_path}/game ruby visualize.rb"
+def choose_schema(choosen_path)
+  schema_paths = Dir.glob('./games/*.txt')
+
+  choose do |menu2|
+    menu2.prompt = 'Choose one of the schema above:'
+    menu2.choices(*schema_paths) do |choosen_schema|
+      exec "SCHEMA_PATH=#{choosen_schema} GAME_PATH=#{choosen_path}/game ruby visualize.rb"
+    end
   end
 end
 
+def choose_game
+  game_paths = Dir.glob('./*/game.rb')
+  game_paths = game_paths.map { |p| p[2..-9] }
+
+
+  choose do |menu|
+    menu.prompt = 'Choose one of the games above:'
+    menu.choices(*game_paths) do |choosen_path|
+      choose_schema(choosen_path)
+    end
+  end
+end
+
+choose_game
