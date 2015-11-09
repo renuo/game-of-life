@@ -1,0 +1,22 @@
+AllCops:
+  RunRailsCops: false
+
+Metrics/LineLength:
+  Max: 120
+
+Style/Documentation:
+  Enabled: false
+
+Style/NonNilCheck:
+  IncludeSemanticChanges: true
+
+AllCops:
+  Include:
+    - '**/Rakefile'
+    - 'lib/**/*'
+    - 'spec/**/*'
+    - '*.gemspec'
+  Exclude:
+    - 'bin/**/*'
+    - 'lib/renuo/cli.rb'
+
