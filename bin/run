@@ -2,11 +2,12 @@
 
 require 'highline/import'
 game_paths = Dir.glob('./*/game.rb')
+game_paths = game_paths.map { |p| p[2..-9] }
 
 choose do |menu|
-  menu.prompt = 'Choose one of the following games:'
+  menu.prompt = 'Choose one of the games above:'
   menu.choices(*game_paths) do |choosen_path|
-    exec "GAME_PATH=#{choosen_path} ruby visualize.rb"
+    exec "GAME_PATH=#{choosen_path}/game ruby visualize.rb"
   end
 end
 
