@@ -14,8 +14,8 @@ class Game
   end
 
   def find_neighbours(x, y)
-    [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]].map.with_index do |coordinate|
-      self.board[x + coordinate.first][y + coordinate.last]
+    [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]].map do |coordinate|
+      self.board.fetch(x + coordinate.first, []).fetch(y + coordinate.last, nil)
     end.flatten.count { |alive| alive}
   end
 end
