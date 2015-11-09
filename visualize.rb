@@ -3,19 +3,23 @@
 require_relative 'fake_game'
 require_relative 'window'
 
-w = Window.new
+window = Window.new
 
-g = nil
+game = nil
 
 if ENV['GAME_PATH']
   require_relative(ENV['GAME_PATH'])
-  g = Game.new(FakeGame.random_field)
+  game = Game.new(random_field)
 else
-  g = FakeGame.new
+  game = Game.new()
 end
 
 loop do
-  w.print(g)
-  g.tick
+  window.print(game)
+  game.tick
   sleep(1)
+end
+
+def random_field(size = 30, alive_ratio = 0.5)
+  size.times.to_a.map { |row| size.times.to_a.map { rand < alive_ratio } }
 end
