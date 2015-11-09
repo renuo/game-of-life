@@ -8,7 +8,7 @@ class Game
 
   def tick
     self.current_state.each_index do |x|
-      self.current_state.each_index do |y|
+      self.current_state[x].each_index do |y|
         self.next_state[x][y] = alive?(x, y)
       end
     end
