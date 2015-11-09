@@ -18,7 +18,7 @@ class Game
   private
 
   def alive?(x, y)
-    case active_count_around(x,y)
+    case active_count_around(x, y)
       when 0, 1
         false
       when 2, 3
@@ -40,14 +40,14 @@ class Game
     bottom = nil if bottom >= self.current_state[0].size
 
     counter = 0
-    counter += 1 if self.current_state[left][top] rescue
-    counter += 1 if self.current_state[x][top] rescue
-    counter += 1 if self.current_state[right][top] rescue
-    counter += 1 if self.current_state[right][y] rescue
-    counter += 1 if self.current_state[right][bottom] rescue
-    counter += 1 if self.current_state[x][bottom] rescue
-    counter += 1 if self.current_state[left][bottom] rescue
-    counter += 1 if self.current_state[left][y] rescue
+    counter += 1 if self.current_state[left][top] rescue nil
+    counter += 1 if self.current_state[x][top] rescue nil
+    counter += 1 if self.current_state[right][top] rescue nil
+    counter += 1 if self.current_state[right][y] rescue nil
+    counter += 1 if self.current_state[right][bottom] rescue nil
+    counter += 1 if self.current_state[x][bottom] rescue nil
+    counter += 1 if self.current_state[left][bottom] rescue nil
+    counter += 1 if self.current_state[left][y] rescue nil
     counter
   end
 end
