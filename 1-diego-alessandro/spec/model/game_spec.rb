@@ -1,5 +1,5 @@
-require '../spec/spec_helper'
-require 'game'
+require_relative '../spec_helper'
+require_relative '../../game'
 
 RSpec.describe Game do
 

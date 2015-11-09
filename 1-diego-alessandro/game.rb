@@ -6,17 +6,19 @@ class Game
   end
 
   def tick
-    next_round = (0...board.size -1).map do |x|
+    next_round = (0...(board.size - 1)).map do |x|
       (0...board[x].size - 1).map do |y|
         will_live(x, y)
       end
     end
-
     @board = next_round
   end
 
-  private
+  def self.test
 
+  end
+
+  private
 
   def neighbor_cells(x, y)
     ([x - 1, 0].max)...([x + 1, board.size - 1].min).map do |nx|
