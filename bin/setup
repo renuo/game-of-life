@@ -1,6 +1,6 @@
-#!/usr/bin/ksh
+#!/usr/bin/sh
 
 typeset destination=${1:-"$(pwd)"}
-typeset sourceFolder="example/game.rb"
+typeset sourceFolder="../example/game.rb"
 
 cp $sourceFolder $destination
