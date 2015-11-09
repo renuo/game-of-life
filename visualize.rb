@@ -7,6 +7,10 @@ window = Window.new
 
 game = nil
 
+def random_field(size = 30, alive_ratio = 0.5)
+  size.times.to_a.map { |row| size.times.to_a.map { rand < alive_ratio } }
+end
+
 if ENV['GAME_PATH']
   require_relative(ENV['GAME_PATH'])
   game = Game.new(random_field)
@@ -20,6 +24,3 @@ loop do
   sleep(1)
 end
 
-def random_field(size = 30, alive_ratio = 0.5)
-  size.times.to_a.map { |row| size.times.to_a.map { rand < alive_ratio } }
-end
