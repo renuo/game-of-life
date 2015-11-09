@@ -12,6 +12,7 @@ class Game
         alive?(row_number, column_number)
       end
     end
+    @fields = next_fields
   end
 
   def alive?(row_number, column_number)
