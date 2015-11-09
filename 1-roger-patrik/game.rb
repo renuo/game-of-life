@@ -1,20 +1,20 @@
 class Game
-  attr_reader :board, :board_new
+  attr_reader :fields, :fields_new
 
   def initialize(board)
-    @board = board
-    @board_new = deep_clone(board)
+    @fields = board
+    @fields_new = deep_clone(board)
     @board_size = board.size
   end
 
   def tick
-    @board.each_with_index do |row, r|
+    @fields.each_with_index do |row, r|
       row.each_with_index do |cell, c|
-        @board_new[r][c] = new_status r, c
+        @fields_new[r][c] = new_status r, c
       end
     end
-    @board = @board_new
-    @board_new = deep_clone(@board_new)
+    @fields = @fields_new
+    @fields_new = deep_clone(@fields_new)
   end
 
   private
@@ -27,7 +27,7 @@ class Game
     neighbour_count = get_neighbour_count r, c
     if neighbour_count < 2
       return false
-    elsif neighbour_count < 4 && @board[r][ c]
+    elsif neighbour_count < 4 && @fields[r][ c]
       return true
     elsif neighbour_count > 3
       return false
@@ -61,7 +61,7 @@ class Game
     (left..right).each do |row|
       (above..below).each do |column|
         unless r == row && c == column
-          if @board[row][ column]
+          if @fields[row][ column]
             count += 1
           end
         end
