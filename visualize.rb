@@ -11,7 +11,7 @@ if ENV['GAME_PATH']
   require_relative(ENV['GAME_PATH'])
   game = Game.new(random_field)
 else
-  game = Game.new
+  game = Game.new()
 end
 
 loop do
