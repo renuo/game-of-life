@@ -6,8 +6,7 @@ game_paths = Dir.glob('./*/game.rb')
 choose do |menu|
   menu.prompt = 'Choose one of the following games:'
   menu.choices(*game_paths) do |choosen_path|
-    say(choosen_path)
-    puts "GAME_PATH=#{choosen_path} ruby visualize.rb"
+    exec "GAME_PATH=#{choosen_path} ruby visualize.rb"
   end
 end
 
