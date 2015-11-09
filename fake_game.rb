@@ -1,11 +1,8 @@
-class FakeGame
+class Game
   def initialize(fields = nil)
     @fields = fields
   end
 
-  def self.random_field(size = 30, alive_ratio = 0.5)
-    size.times.to_a.map { |row| size.times.to_a.map { rand < alive_ratio } }
-  end
 
   def fields
     return @fields if @fields
