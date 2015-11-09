@@ -12,6 +12,9 @@ class Game
         self.next_state[x][y] = alive?(x, y)
       end
     end
+  end
+
+  def fields
     self.next_state
   end
 
