@@ -14,9 +14,7 @@ class Game
   end
 
   def tick
-    zero_one_array = fields.map { |row| row.map { |cell| cell ? 1 : 0 } }
-
-    m = Matrix[*zero_one_array]
+    m = Matrix[*fields].map { |cell| cell ? 1 : 0 }
 
     si = @shifted_identity_matrix
     sit = @shifted_identity_matrix_t
@@ -30,11 +28,9 @@ class Game
     ld = sit * l
 
     magic_matrix = (m * 0.5) + l + r + u + d + lu + ld + ru + rd
-    @fields = magic_matrix.to_a.map do |row|
-      row.map do |cell|
-        cell < 3.75 && cell > 2.25
-      end
-    end
+    @fields = magic_matrix.map do |cell|
+      cell < 3.75 && cell > 2.25
+    end.to_a
   end
 
   def fields
