@@ -3,7 +3,7 @@ require 'matrix'
 class Game
   def initialize(fields)
     @m = Matrix[*fields].map { |cell| cell ? 1 : 0 }
-    @t = (-1..1).map { |shift| identity_matrix(shift) }
+    @t = (-1..1).map { |s| Matrix.build(fields.size, fields[0].size) { |r, c| r + s == c ? 1 : 0 } }
   end
 
   def tick
@@ -13,11 +13,5 @@ class Game
 
   def fields
     @m.map { |cell| cell == 1 }.to_a
-  end
-
-  private
-
-  def identity_matrix(shift)
-    Matrix.build(@m.row_count, @m.column_count) { |row, col| row + shift == col ? 1 : 0 }
   end
 end
