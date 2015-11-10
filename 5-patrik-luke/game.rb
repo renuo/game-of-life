@@ -4,6 +4,7 @@ class Game
   def initialize(fields)
     @fields = fields
     @shifted_identity_matrix = shifted_identity_matrix
+    @shifted_identity_matrix_t = @shifted_identity_matrix.transpose
   end
 
   def shifted_identity_matrix
@@ -18,14 +19,15 @@ class Game
     m = Matrix[*zero_one_array]
 
     si = @shifted_identity_matrix
+    sit = @shifted_identity_matrix_t
     u = si * m
-    d = si.transpose * m
-    l = m * si.transpose
+    d = sit * m
+    l = m * sit
     r = m * si
     ru = si * r
     lu = si * l
-    rd = si.transpose * r
-    ld = si.transpose * l
+    rd = sit * r
+    ld = sit * l
 
     magic_matrix = (m * 0.5) + l + r + u + d + lu + ld + ru + rd
     @fields = magic_matrix.to_a.map do |row|
