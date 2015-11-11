@@ -1,26 +1,39 @@
 #!/usr/bin/env ruby
 
-require_relative 'fake_game'
 require_relative 'window'
 
-window = Window.new
+class Main
+  def run
+    window = Window.new
+    game = load_game(ENV['GAME_PATH'])
+    game_loop(window, game)
+  end
 
-game = nil
+  def game_loop(window, game)
+    loop do
+      window.print(game)
+      game.tick
+      sleep(1)
+    end
+  end
 
-def random_field(size = 30, alive_ratio = 0.5)
-  size.times.to_a.map { |row| size.times.to_a.map { rand < alive_ratio } }
+  def load_game(path)
+    path ? real_game(path) : fake_game
+  end
+
+  def real_game(path)
+    require_relative(path)
+    Game.new(random_field(30, 0.5))
+  end
+
+  def fake_game
+    require_relative 'fake_game'
+    FakeGame.new
+  end
+
+  def random_field(size, alive_ratio)
+    size.times.to_a.map { size.times.to_a.map { rand < alive_ratio } }
+  end
 end
 
-if ENV['GAME_PATH']
-  require_relative(ENV['GAME_PATH'])
-  game = Game.new(random_field)
-else
-  game = Game.new()
-end
-
-loop do
-  window.print(game)
-  game.tick
-  sleep(1)
-end
-
+Main.new.run

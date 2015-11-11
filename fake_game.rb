@@ -1,8 +1,7 @@
-class Game
+class FakeGame
   def initialize(fields = nil)
     @fields = fields
   end
-
 
   def fields
     return @fields if @fields
