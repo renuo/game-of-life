@@ -23,15 +23,30 @@ class Main
   end
 
   def compare_games(window, game, reference_game)
-    if game.fields != reference_game.fields
-      window.print(game)
-      puts 'There was a difference, please press <Enter> to see it'
-      gets
-      window.print(reference_game)
-      puts 'Press <Enter> to finish the routine'
-      gets
-      raise 'Bye'
+    start_compare_loop(window, game, reference_game) if game.fields != reference_game.fields
+  end
+
+  def start_compare_loop(window, game, reference_game)
+    show_reference_game = true
+
+    loop do
+      if show_reference_game
+        print_game('Reference Game', reference_game, window)
+      else
+        print_game('Your Implementation', game, window)
+      end
+      show_reference_game = !show_reference_game
     end
+    window.print(game)
+  end
+
+  def print_game(game_name, game_to_print, window)
+    window.print(game_to_print)
+    puts ''
+    puts game_name
+    puts ''
+    puts 'Press <enter> to continue'
+    gets
   end
 
   def load_game(path)
@@ -46,6 +61,7 @@ class Main
   def random_field(size, alive_ratio)
     size.times.to_a.map { size.times.to_a.map { rand < alive_ratio } }
   end
+
 end
 
 Main.new.run
