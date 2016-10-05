@@ -1,36 +1,38 @@
 class Game
   def initialize(fields)
     @rule_evaluator = RuleEvaluator.new
-    @cells = fields.map.with_index do |row, row_index|
-      row.map.with_index do |cell_value, cell_index|
-        Cell.new(cell_value, Coordinate.new(row_index, cell_index))
-      end
-    end
-    nf = NeighborFinder.new(@cells)
-    @cells.map.with_index do |row, row_index|
-      row.map.with_index do |cell, cell_index|
-        cell.neighbors = nf.find(Coordinate.new(row_index, cell_index))
-      end
-    end
+    initialize_cells(fields)
+    initialize_neighbors
   end
 
   def tick
-    @cells.each do |row|
-      row.each do |cell|
-        cell.will_live = @rule_evaluator.will_live?(cell)
-      end
-    end
-    @cells.each do |row|
-      row.each do |cell|
-        cell.next!
-      end
-    end
+    @cells.flatten.each { |cell| cell.will_live = @rule_evaluator.will_live?(cell) }
+    @cells.flatten.each { |cell| cell.next! }
   end
 
   def fields
     @cells.map do |row|
       row.map do |cell|
         cell.alive?
+      end
+    end
+  end
+
+  private 
+
+  def initialize_cells(fields)
+    @cells = fields.map.with_index do |row, row_index|
+      row.map.with_index do |cell_value, cell_index|
+        Cell.new(cell_value, Coordinate.new(row_index, cell_index))
+      end
+    end
+  end
+
+  def initialize_neighbors
+    nf = NeighborFinder.new(@cells)
+    @cells.map.with_index do |row, row_index|
+      row.map.with_index do |cell, cell_index|
+        cell.neighbors = nf.find(Coordinate.new(row_index, cell_index))
       end
     end
   end
@@ -58,7 +60,7 @@ end
 
 class RuleEvaluator
   def will_live?(cell)
-    cell.alive_neighbors >= 3 || (cell.alive_neighbors < 2 && cell.alive?)
+    cell.alive_neighbors >= 3 || (cell.alive_neighbors < 2 && cell.alive?) || cell.alive?
   end
 end
 
@@ -68,9 +70,7 @@ class NeighborFinder
   end
 
   def find(coordinates)
-    @cells.map do |row|
-      row.select { |cell| coordinates.neighbor_coordinates.include?(cell.coordinates) }
-    end.flatten
+    @cells.flatten.select { |cell| coordinates.neighbor_coordinates.include?(cell.coordinates) }
   end
 end
 
