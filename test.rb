@@ -18,7 +18,6 @@ class Main
       compare_games(window, game, reference_game)
       game.tick
       reference_game.tick
-      sleep(1)
     end
     puts 'All went well (probably), congrats!'
   end
