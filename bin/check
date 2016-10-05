@@ -1,3 +1,2 @@
 #!/bin/bash
 ruby test.rb
-ruby test/test_simple.rb
