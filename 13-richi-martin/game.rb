@@ -24,16 +24,16 @@ class Game
   def neighbours_count(x, y)
     sum = (x-1..x+1).inject(0) do |sum, i|
       (y-1..y+1).inject(sum) do |sum, j|
-        sum + (get_field(i, j) ? 1 : 0)
+        sum + get_field(i, j)
       end
     end
-    sum - (get_field(x, y) ? 1 : 0)
+    sum - get_field(x, y)
   end
 
   def get_field(x, y)
     x += (x - x.abs) * @fields.length
     y += (y - y.abs) * @fields[0].length
 
-    @fields.fetch(x, []).fetch(y, false)
+    [@fields.fetch(x, []).fetch(y, false)].count(true)
   end
 end
