@@ -6,13 +6,13 @@ class Game
   def tick
     @fields = @fields.map.with_index do |row, x|
       row.map.with_index do |cell, y|
-        change_state(cell, neighbours(x,y))
+        change_state(cell, neighbours(x, y))
       end
     end
   end
 
   def get_field(x, y)
-    (x < 0 || y < 0) ? false : @fields.fetch(x, []).fetch(y, false)
+    !(x < 0 || y < 0) && @fields.fetch(x, []).fetch(y, false)
   end
 
   def change_state(current_state, n_neighbours)
