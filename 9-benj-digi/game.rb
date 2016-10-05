@@ -28,6 +28,7 @@ class Game
   end
 
   def get_field(x, y)
+    return false if x < 0 || y < 0
     @fields.fetch(x, []).fetch(y, false)
   end
 end
