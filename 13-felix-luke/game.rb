@@ -32,7 +32,11 @@ class Game
   end
 
   def field(x, y)
-    x != -1 && y != -1 && @fields.fetch(x, []).fetch(y, false)
+    respects_bounds?(x, y) && @fields.fetch(x, []).fetch(y, false)
+  end
+
+  def respects_bounds?(x, y)
+    x != -1 && y != -1
   end
 
   def fields
