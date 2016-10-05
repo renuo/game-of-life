@@ -1,4 +1,5 @@
 require_relative 'board'
+require_relative 'neighbours'
 
 class Game
   def initialize(fields)
@@ -20,16 +21,7 @@ class Game
   end
 
   def count_alive_neighbours(x, y)
-    [
-      @board[x-1, y-1],
-      @board[x-1, y],
-      @board[x-1, y+1],
-      @board[x, y-1],
-      @board[x, y+1],
-      @board[x+1, y-1],
-      @board[x+1, y],
-      @board[x+1, y+1]
-    ].count { |x| x }
+    Neighbours.new(@board, x, y).alive_count
   end
 
   def fields
