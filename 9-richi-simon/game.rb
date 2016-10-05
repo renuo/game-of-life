@@ -4,13 +4,11 @@ class Game
   end
 
   def tick
-    results = @fields.clone
-    @fields.each_with_index do |row, x|
-      row.each_with_index do |cell, y|
-        results[x][y] = update_status(cell, count_neighbours(x, y))
+    @fields = @fields.map.with_index do |row, x|
+      row.map.with_index do |cell, y|
+        update_status(@fields[x][y], count_neighbours(x, y))
       end
     end
-    @fields = results
   end
 
   def count_neighbours(x, y)
