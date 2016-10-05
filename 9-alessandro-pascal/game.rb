@@ -4,15 +4,11 @@ class Game
   end
 
   def tick
-    new_fields = @fields.clone
-
-    @fields.each_with_index do |row, row_number|
-      row.each_with_index do |cell, column_number|
-        new_fields[row_number][column_number] = calculate_new_status(cell, count_alive_neighbours(row_number, column_number))
+    @fields = @fields.map.with_index do |row, row_number|
+      row.map.with_index do |cell, column_number|
+        calculate_new_status(cell, count_alive_neighbours(row_number, column_number))
       end
     end
-
-    @fields = new_fields
   end
 
 
@@ -25,10 +21,10 @@ class Game
   def count_alive_neighbours(row_number, column_number)
     counter = 0
 
-    [-1, 0, 1].each do |y|
-      [-1, 0, 1].each do |x|
-        unless (row_number + y) < 0 || (column_number + x) < 0
-          counter += 1 if @fields.fetch(row_number + y, []).fetch(column_number + x, false) && !(x == 0 && y == 0)
+    [-1, 0, 1].each do |row_delta|
+      [-1, 0, 1].each do |column_delta|
+        if ((row_number + row_delta) >= 0 || (column_number + column_delta) >= 0) && !(column_delta == 0 && row_delta == 0)
+          counter += 1 if @fields.fetch(row_number + row_delta, []).fetch(column_number + column_delta, false)
         end
       end
     end
@@ -47,3 +43,4 @@ class Game
     cell
   end
 end
+
