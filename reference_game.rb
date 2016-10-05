@@ -1,4 +1,4 @@
-class Game
+class ReferenceGame
   def initialize(fields)
     @fields = fields
   end
