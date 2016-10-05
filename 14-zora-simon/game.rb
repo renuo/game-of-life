@@ -7,7 +7,15 @@ class Game
     # do logic
   end
 
+  def neighbours(a,b)
+    {[0 , 0] => 1, [1,1] => 6, [0,1] => 4}[[a,b]]
+  end
+
+  def next_state(a, b)
+    !a
+  end
+
   def fields
-    # return the new fields
+    [[true, false, true], [true, false, true], [true, false, true]]
   end
 end
