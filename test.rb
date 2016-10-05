@@ -3,6 +3,8 @@
 require_relative 'window'
 require_relative 'reference_game'
 
+srand(42)
+
 class Main
   def run
     @fields = random_field(30, 0.5)
