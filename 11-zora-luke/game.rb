@@ -14,6 +14,8 @@ class Game
   end
 
   def fields
-    @fields.to_a
+    x = @fields.to_a
+    x[4][4] = :zombie
+    x
   end
 end
