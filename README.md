@@ -6,6 +6,14 @@
 bundle install
 ```
 
+## Make your own game
+
+```bash
+cp -r ./example 00-<name>
+```
+
+Then edit the `game.rb` file in the new directory.
+
 ## Run
 
 See a listing of all games and run one:
