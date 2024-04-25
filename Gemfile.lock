@@ -1,31 +1,16 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    diff-lcs (1.2.5)
-    highline (1.7.8)
-    rspec (3.5.0)
-      rspec-core (~> 3.5.0)
-      rspec-expectations (~> 3.5.0)
-      rspec-mocks (~> 3.5.0)
-    rspec-core (3.5.3)
-      rspec-support (~> 3.5.0)
-    rspec-expectations (3.5.0)
-      diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.5.0)
-    rspec-mocks (3.5.0)
-      diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.5.0)
-    rspec-support (3.5.0)
+    highline (3.0.1)
+    minitest (5.22.3)
 
 PLATFORMS
+  arm64-darwin-22
   ruby
 
 DEPENDENCIES
   highline
-  rspec
-
-RUBY VERSION
-   ruby 2.3.1p112
+  minitest
 
 BUNDLED WITH
-   1.13.1
+   2.5.6
