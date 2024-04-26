@@ -33,3 +33,9 @@ class Game
      fields[x-1]&.[](y-1), fields[x]&.[](y-1), fields[x+1]&.[](y-1)]
   end
 end
+
+class GameMin
+  def initialize(f) = @f=f
+  def fields = @f
+  def tick = (d=@f.map(&:dup);@f.each_with_index{|c,x|c.each_with_index{|r,y|@f[x][y]=(n=[[-1,1],[0,1],[1,1],[-1,0],[1,0],[-1,-1],[0,-1],[1,-1]].filter_map{|a,b|d.dig(x+a,y+b)}.count)==3||(n==2&&@f[x][y])}})
+end
