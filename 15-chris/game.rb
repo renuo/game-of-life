@@ -10,16 +10,16 @@ class Game
   end
 
   def tick
+    prev_fields = @fields.map(&:dup)
+
     @fields.each_with_index do |col, x|
       col.each_with_index do |row, y|
-        live_neighbors = neighbors(x, y).count true
+        live_neighbors = neighbors(x, y, prev_fields).count true
 
-        # # Exposure/Overcrowding
-        if live_neighbors < 2 || live_neighbors > 3
-          @fields[x][y] = false
-        # Revive
-        elsif live_neighbors == 3
+        if live_neighbors == 3
           @fields[x][y] = true
+        elsif live_neighbors < 2 || live_neighbors > 3
+          @fields[x][y] = false
         end
       end
     end
@@ -27,9 +27,9 @@ class Game
 
   private
 
-  def neighbors(x, y)
-    [@fields[x-1]&.[](y+1), @fields[x]&.[](y+1), @fields[x+1]&.[](y+1),
-     @fields[x-1]&.[](y  ),                      @fields[x+1]&.[](y  ),
-     @fields[x-1]&.[](y-1), @fields[x]&.[](y-1), @fields[x+1]&.[](y-1)]
+  def neighbors(x, y, fields)
+    [fields[x-1]&.[](y+1), fields[x]&.[](y+1), fields[x+1]&.[](y+1),
+     fields[x-1]&.[](y  ),                     fields[x+1]&.[](y  ),
+     fields[x-1]&.[](y-1), fields[x]&.[](y-1), fields[x+1]&.[](y-1)]
   end
 end
